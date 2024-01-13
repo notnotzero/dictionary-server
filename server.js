@@ -3,13 +3,17 @@ var http = require('http');
 var https = require('https');
 var url = require('url');
 
-var dictionary = null;
+var mindMap = null;
+var mindMapHTML = fs.readFileSync('mindmap.html', 'utf8');
 
-var dictionaryHandler = (request, response) => {
-    var u = url.parse(request.url);
+var mindMapHandler = (request, response) => {
+    var parsedUrl = url.parse(request.url);
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Methods', 'GET');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    if (u.pathname == '/readyz') {
-        if (dictionary) {
+    if (parsedUrl.pathname === '/readyz') {
+        if (mindMap) {
             response.writeHead(200);
             response.end('OK');
         } else {
@@ -19,67 +23,71 @@ var dictionaryHandler = (request, response) => {
         return;
     }
 
-    var key = '';
-    if (u.pathname.length > 0) {
-        key = u.pathname.substr(1).toUpperCase();
-    }
-    var def = dictionary[key];
-    if (!def) {
-        response.writeHead(404);
-        response.end(key + ' was not found');
+    if (parsedUrl.pathname === '/api/mindmap' && mindMap) {
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify(mindMap));
         return;
     }
-    response.writeHead(200);
-    response.end(def);
+
+    if (parsedUrl.pathname === '/mindmap_ui' && mindMap) {
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.end(mindMapHTML);
+        return;
+    }
+
+    // Fallback for any other requests
+    response.writeHead(404);
+    response.end('Not Found');
 }
 
-var downloadDictionary = (url, file, callback) => {
+var downloadMindMap = (url, file, callback) => {
     var stream = fs.createWriteStream(file);
     var req = https.get(url, function(res) {
         res.pipe(stream);
         stream.on('finish', function() {
             stream.close(callback);
-            console.log('dictionary downloaded');
+            console.log('Mind map downloaded');
         });
     }).on('error', function(err) {
         fs.unlink(file);
-        if (callback) cb(err.message);
+        if (callback) callback(err.message);
     });
 };
 
-var loadDictionary = (file, callback) => {
+var loadMindMap = (file, callback) => {
     fs.readFile(file, (err, data) => {
         if (err) {
             console.log(err);
             callback(err);
             return;
         }
-        dictionary = JSON.parse(data);
-        console.log('dictionary loaded.');
+        mindMap = JSON.parse(data);
+        console.log('Mind map loaded.');
         callback();
     })
 };
 
-downloadDictionary('https://raw.githubusercontent.com/notnotzero/dictionary-server/main/dictionary.json', 'dictionary.json', (err) => {
+
+downloadMindMap('https://raw.githubusercontent.com/notnotzero/dictionary-server/main/mind_map.json', 'mind_map.json', (err) => {
     if (err) {
         console.log(err);
         return;
     }
-    loadDictionary('dictionary.json', (err) => {
+    loadMindMap('mind_map.json', (err) => {
         if (err) {
             console.log(err);
             return;
         }
-        console.log('ready to serve');
+        console.log('Ready to serve mind map');
     });
 });
 
-const server = http.createServer(dictionaryHandler);
+const server = http.createServer(mindMapHandler);
 
 server.listen(8080, (err) => {
     if (err) {
-        return console.log('error starting server: ' + err);
+        return console.log('Error starting server:', err);
     }
 
-    console.log('server is listening on 8080');
+    console.log('Server is listening on 8080');
 });
