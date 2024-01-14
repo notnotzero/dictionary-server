@@ -9,10 +9,13 @@
     { "data": { "id": "Docker", "label": "Docker" } },
     { "data": { "id": "Database", "label": "База данных" } },
     { "data": { "id": "NNArchitecture", "label": "Архитектура нейронной сети" } },
-    { "data": { "id": "TensorflowJS", "label": "TensorflowJS" } }
+    { "data": { "id": "TensorflowJS", "label": "TensorflowJS" } },
+    {"data": { "id": "WebApp", "label": "Веб-приложение" } }
   ],
   "edges": [
     { "data": { "source": "ML", "target": "NeuralNetworks" } },
+    { "data": { "source": "WebApp", "target": "Backend" } },
+    { "data": { "source": "Backend", "target": "Database" } },
     { "data": { "source": "NeuralNetworks", "target": "Detectors" } },
     { "data": { "source": "Backend", "target": "Frontend" } },
     { "data": { "source": "Containerization", "target": "Docker" } },
