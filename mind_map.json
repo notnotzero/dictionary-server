@@ -9,8 +9,8 @@
     { "data": { "id": "NNArchitecture", "label": "Архитектура нейронной сети" } },
     { "data": { "id": "TensorflowJS", "label": "TensorflowJS" } },
     {"data": { "id": "WebApp", "label": "Веб-приложение" } },
-    {"data": { "id": "Orthophoto", "label": "Orthophoto" } },
-    {"data": { "id": "ProgLanguage", "label": "Programming language" } }
+    {"data": { "id": "Orthophoto", "label": "Ортофото" } },
+    {"data": { "id": "ProgLanguage", "label": "Язык программирования" } }
 
   ],
   "edges": [
