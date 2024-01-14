@@ -22,6 +22,6 @@
     { "data": { "source": "Containerization", "target": "Docker" } },
     { "data": { "source": "NeuralNetworks", "target": "NNArchitecture" } },
     { "data": { "source": "WebApp", "target": "ProgLanguage" } },
-    { "data": { "source": "NeuralNetworks", "target": "ProgLanguage" } }
+    { "data": { "source": "NNArchitecture", "target": "ProgLanguage" } }
   ]
 }
