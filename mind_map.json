@@ -18,6 +18,8 @@
     { "data": { "source": "Backend", "target": "Frontend" } },
     { "data": { "source": "WebApp", "target": "Frontend" } },
     { "data": { "source": "WebApp", "target": "Database" } },
+    { "data": { "source": "WebApp", "target": "Backend" } },
+    { "data": { "source": "WebApp", "target": "Containerization" } },
     { "data": { "source": "Backend", "target": "Database" } },
     { "data": { "source": "Containerization", "target": "Docker" } },
     { "data": { "source": "NeuralNetworks", "target": "NNArchitecture" } },
