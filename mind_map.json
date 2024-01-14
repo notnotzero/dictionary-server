@@ -1,9 +1,22 @@
 {
   "nodes": [
-    { "data": { "id": "API", "label": "API" } },
-    { "data": { "id": "Neural Networks", "label": "Neural Networks" } }
+    { "data": { "id": "ML", "label": "Машинное обучение" } },
+    { "data": { "id": "NeuralNetworks", "label": "Нейронные сети" } },
+    { "data": { "id": "Detectors", "label": "Детекторы" } },
+    { "data": { "id": "Backend", "label": "Бекенд" } },
+    { "data": { "id": "Frontend", "label": "Фронтэнд" } },
+    { "data": { "id": "Containerization", "label": "Контейнеризация" } },
+    { "data": { "id": "Docker", "label": "Docker" } },
+    { "data": { "id": "Database", "label": "База данных" } },
+    { "data": { "id": "NNArchitecture", "label": "Архитектура нейронной сети" } },
+    { "data": { "id": "TensorflowJS", "label": "TensorflowJS" } }
   ],
   "edges": [
-    { "data": { "source": "API", "target": "Neural Networks" } }
+    { "data": { "source": "ML", "target": "NeuralNetworks" } },
+    { "data": { "source": "NeuralNetworks", "target": "Detectors" } },
+    { "data": { "source": "Backend", "target": "Frontend" } },
+    { "data": { "source": "Containerization", "target": "Docker" } },
+    { "data": { "source": "NeuralNetworks", "target": "NNArchitecture" } },
+    { "data": { "source": "NNArchitecture", "target": "TensorflowJS" } }
   ]
 }
